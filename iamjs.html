@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>내 안의 쉼이 자라는 곳, 성장 장성</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: 굵직하고 신뢰감 높은 Noto Sans KR 및 세련된 아웃라인용 Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome 아이콘 라이브러리 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2canvas: DOM elements to image converter for true download feature -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepBlue: '#0F172A',     // 깊고 신뢰감 있는 슬레이트 딥블루 (메인)
+                        oceanBlue: '#1E3A8A',    // 청명한 딥블루 포인트
+                        neutralWhite: '#FFFFFF', // 화이트
+                        softGray: '#F8FAFC',     // 배경용 소프트 그레이
+                        luxuryGold: '#D97706',   // 포인트 칼라
+                        activeTeal: '#0D9488'    // 숲 치유 테마용 서브 컬러
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    screens: {
+                        'xs': '400px' // 초소형 모바일 대응용 브레이크포인트 추가
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F8FAFC;
+            color: #0F172A;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent; /* 모바일 터치 하이라이트 투명화 */
+        }
+        /* 우아한 페이드 전환 애니메이션 */
+        .fade-in-active {
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* 보딩패스 티켓 디자인용 점선 효과 */
+        .ticket-dashed-line {
+            background-image: linear-gradient(to right, #CBD5E1 50%, rgba(255, 255, 255, 0) 0%);
+            background-position: bottom;
+            background-size: 10px 1px;
+            background-repeat: repeat-x;
+        }
+    </style>
+</head>
+<body class="selection:bg-oceanBlue selection:text-white">
+
+    <!-- 스크롤 진행률 상단 바 (최상단 고정) -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1.5 bg-gradient-to-r from-teal-400 via-emerald-400 to-amber-300 z-[100] transition-all duration-75 w-0"></div>
+
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 md:py-5 px-4 md:px-12 flex justify-between items-center bg-transparent">
+        <a href="#hero" class="flex items-center space-x-2">
+            <span class="font-black text-lg md:text-2xl text-deepBlue tracking-tighter transition-transform hover:scale-105" id="nav-logo">
+                성장<span class="text-oceanBlue">장성</span>
+            </span>
+        </a>
+        <nav class="hidden lg:flex space-x-8 items-center text-sm font-semibold text-gray-600" id="nav-links">
+            <a href="#intro" class="hover:text-oceanBlue transition-colors">소개</a>
+            <a href="#selling-points" class="hover:text-oceanBlue transition-colors">4대 매력</a>
+            <a href="#recommended-courses" class="hover:text-oceanBlue transition-colors">추천 코스</a>
+            <a href="#spots" class="hover:text-oceanBlue transition-colors">추천 명소</a>
+        </nav>
+        <a href="#cta-section" class="px-4 py-2 md:px-5 md:py-2.5 bg-deepBlue text-white text-[11px] md:text-xs font-bold rounded-lg hover:bg-oceanBlue transition-all shadow-md">
+            티켓 발급하기
+        </a>
+    </header>
+
+    <section id="hero" class="relative min-h-screen flex items-center justify-center bg-deepBlue overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1920&q=80" 
+                 alt="장성의 웅장한 대자연 비주얼" 
+                 class="w-full h-full object-cover opacity-35 filter brightness-90">
+            <div class="absolute inset-0 bg-gradient-to-b from-deepBlue/70 via-deepBlue/90 to-deepBlue"></div>
+        </div>
+
+        <div class="absolute top-1/4 right-10 w-48 h-48 md:w-96 md:h-96 rounded-full bg-oceanBlue/20 filter blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-10 left-10 w-36 h-36 md:w-72 md:h-72 rounded-full bg-teal-900/20 filter blur-3xl"></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-24 text-center flex flex-col items-center">
+            <span class="inline-block px-3 py-1 bg-oceanBlue/40 border border-oceanBlue text-teal-300 text-[10px] md:text-xs font-bold rounded-full mb-6 tracking-widest uppercase">
+                Premium Wellness Travel
+            </span>
+            <h1 class="font-black text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-neutralWhite tracking-tight leading-tight mb-6 md:mb-8">
+                내 안의 쉼이 자라는 곳,<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-amber-300">성장 장성</span>
+            </h1>
+            <p class="text-slate-300 text-sm md:text-xl max-w-3xl leading-relaxed mb-10 md:mb-12 font-light">
+                복잡한 대도심의 소음을 등지고, 드넓은 편백숲과 고요한 물길을 따라 걷습니다.<br class="hidden sm:block">
+                오롯이 준비된 사색의 공간에서 내 안의 회복과 온전한 성장을 직접 마주해 보세요.
+            </p>
+
+            <div class="w-full max-w-4xl bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-5 md:p-8 shadow-2xl flex flex-col sm:flex-row justify-around items-stretch sm:items-center gap-6 mt-4">
+                <div class="text-left flex items-center space-x-4">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-teal-500/10 rounded-full flex items-center justify-center text-teal-400 shrink-0">
+                        <i class="fa-solid fa-tree text-lg md:text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-[9px] md:text-xs text-slate-400 font-semibold uppercase tracking-wider">Forest Ratio</div>
+                        <div class="text-sm md:text-lg font-bold text-neutralWhite">국내 최대 편백나무 숲</div>
+                    </div>
+                </div>
+                <div class="w-[1px] h-10 bg-white/10 hidden sm:block"></div>
+                <div class="h-[1px] w-full bg-white/10 block sm:hidden"></div>
+                <div class="text-left flex items-center space-x-4">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-500/10 rounded-full flex items-center justify-center text-blue-400 shrink-0">
+                        <i class="fa-solid fa-water text-lg md:text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-[9px] md:text-xs text-slate-400 font-semibold uppercase tracking-wider">Water Quality</div>
+                        <div class="text-sm md:text-lg font-bold text-neutralWhite">맑고 깊은 장성호 수변길</div>
+                    </div>
+                </div>
+                <div class="w-[1px] h-10 bg-white/10 hidden sm:block"></div>
+                <div class="h-[1px] w-full bg-white/10 block sm:hidden"></div>
+                <div class="text-left flex items-center space-x-4">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-400 shrink-0">
+                        <i class="fa-solid fa-seedling text-lg md:text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-[9px] md:text-xs text-slate-400 font-semibold uppercase tracking-wider">Signature Flower</div>
+                        <div class="text-sm md:text-lg font-bold text-neutralWhite">황룡강 억만송이 노란꽃</div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#intro" class="mt-12 md:mt-16 animate-bounce text-slate-400 hover:text-white transition-colors duration-300">
+                <p class="text-[10px] tracking-widest font-bold mb-2">여정 시작하기</p>
+                <i class="fa-solid fa-chevron-down text-base md:text-lg"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="intro" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-neutralWhite relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
+                <div class="lg:col-span-5 relative">
+                    <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 md:border-8 border-softGray relative">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" 
+                             alt="숲속 힐링 이미지" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-deepBlue/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <span class="text-xs text-teal-300 font-bold tracking-widest uppercase">Healing Journey</span>
+                            <h4 class="text-base md:text-lg font-bold">오롯한 회복의 가치</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 space-y-6 md:space-y-8">
+                    <span class="text-xs font-bold text-oceanBlue uppercase tracking-widest block">Brand Story</span>
+                    <h2 class="font-black text-2xl sm:text-4xl md:text-5xl text-deepBlue tracking-tight leading-tight">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-oceanBlue">#성장은, 잘 쉬는 것부터.</span>
+                    </h2>
+                    <p class="text-gray-600 text-sm md:text-lg leading-relaxed font-light">
+                        장성의 도시 브랜드 <strong class="font-bold text-deepBlue">‘성장장성’</strong>을<br class="hidden sm:block">
+                        더 일상적인 가치로 풀어냈습니다.<br><br>
+                        축령산의 편백숲과 황룡강의 자연, 그리고 조용한 쉼의 시간을 통해 몸과 마음을 회복하고 다시 나아갈 힘을 만날 수 있는 여행을 제안합니다.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                        <div>
+                            <h5 class="font-bold text-base md:text-lg text-deepBlue mb-2">🌿 치유를 통한 비움</h5>
+                            <p class="text-xs md:text-sm text-gray-500 leading-relaxed font-light">바쁘게 살아온 내 삶의 묵은 감정들과 스트레스를 푸른 숲과 맑은 강바람에 가만히 흘려보냅니다.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-base md:text-lg text-deepBlue mb-2">⚡ 회복을 통한 채움</h5>
+                            <p class="text-xs md:text-sm text-gray-500 leading-relaxed font-light">풍성한 인문학적 문화 공간과 고요한 사색 속에서 미래를 채우는 든든한 에너지를 발견합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="selling-points" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-softGray">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 md:text-center md:mb-16">
+                <span class="text-xs font-bold tracking-widest text-oceanBlue uppercase">Core Essence</span>
+                <h2 class="font-black text-2xl sm:text-5xl text-deepBlue mt-2 tracking-tight">장성군 4대 매력 포인트</h2>
+                <p class="text-gray-500 mt-3 max-w-xl mx-auto text-xs md:text-base font-light">
+                    자연, 역사, 현대적 감성, 그리고 활력 넘치는 푸드가 융합된 완벽한 웰니스 테마를 한눈에 느껴보세요.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+                
+                <!-- Card 1: 초록빛 치유 -->
+                <div class="bg-neutralWhite rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-4 hover:rotate-1 hover:border-emerald-500/30 transition-all duration-500 ease-out flex flex-col justify-between group">
+                    <div class="p-5 md:p-6">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-tree text-lg md:text-xl"></i>
+                        </div>
+                        <span class="text-[10px] md:text-xs font-bold text-emerald-600 uppercase tracking-widest">Wellness Healing</span>
+                        <h3 class="font-black text-lg md:text-xl text-deepBlue mt-2 mb-3">초록이 주는 치유</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed font-light">
+                            국내 최대 편백나무 숲과 장성호 수변길을 엮은 치유의 여정. 맑은 피톤치드를 온몸으로 마주하며 자연 속에 나를 얹어 봅니다.
+                        </p>
+                    </div>
+                    <div class="px-5 md:px-6 py-4 bg-emerald-50/50 border-t border-emerald-100/20 text-[10px] md:text-[11px] font-semibold text-emerald-700">
+                        📌 축령산 편백숲 & 장성호 수변길
+                    </div>
+                </div>
+
+                <!-- Card 2: 사색과 역사 -->
+                <div class="bg-neutralWhite rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-4 hover:rotate-1 hover:border-blue-500/30 transition-all duration-500 ease-out flex flex-col justify-between group">
+                    <div class="p-5 md:p-6">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-book-open-reader text-lg md:text-xl"></i>
+                        </div>
+                        <span class="text-[10px] md:text-xs font-bold text-blue-600 uppercase tracking-widest">Heritage & Soul</span>
+                        <h3 class="font-black text-lg md:text-xl text-deepBlue mt-2 mb-3">사색과 역사 문화</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed font-light">
+                            세계문화유산 필암서원의 곧은 정신과 사계절이 아름다운 유서 깊은 백양사에서 누리는 깊이 있는 인문학적 휴식과 고요한 평온.
+                        </p>
+                    </div>
+                    <div class="px-5 md:px-6 py-4 bg-blue-50/50 border-t border-blue-100/20 text-[10px] md:text-[11px] font-semibold text-blue-700">
+                        📌 유네스코 필암서원 & 백양사
+                    </div>
+                </div>
+
+                <!-- Card 3: 노란빛 낭만 -->
+                <div class="bg-neutralWhite rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-4 hover:rotate-1 hover:border-amber-500/30 transition-all duration-500 ease-out flex flex-col justify-between group">
+                    <div class="p-5 md:p-6">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-mug-hot text-lg md:text-xl"></i>
+                        </div>
+                        <span class="text-[10px] md:text-xs font-bold text-amber-600 uppercase tracking-widest">Romance & Cafe</span>
+                        <h3 class="font-black text-lg md:text-xl text-deepBlue mt-2 mb-3">노란빛 낭만과 카페</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed font-light">
+                            황룡강 노란꽃축제의 찬란함과 감성 카페(오데온, 필그림 등)의 짙은 원두 향, 시그니처 옐로우 수제 디저트의 달콤한 조화.
+                        </p>
+                    </div>
+                    <div class="px-5 md:px-6 py-4 bg-amber-50/50 border-t border-amber-100/20 text-[10px] md:text-[11px] font-semibold text-amber-700">
+                        📌 황룡강 꽃길 & 감성 로컬 카페
+                    </div>
+                </div>
+
+                <!-- Card 4: 아웃도어 & 로컬푸드 -->
+                <div class="bg-neutralWhite rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-4 hover:rotate-1 hover:border-rose-500/30 transition-all duration-500 ease-out flex flex-col justify-between group">
+                    <div class="p-5 md:p-6">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-rose-600 group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-tent text-lg md:text-xl"></i>
+                        </div>
+                        <span class="text-[10px] md:text-xs font-bold text-rose-600 uppercase tracking-widest">Outdoor & Gourmet</span>
+                        <h3 class="font-black text-lg md:text-xl text-deepBlue mt-2 mb-3">아웃도어 & 로컬푸드</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed font-light">
+                            홍길동테마파크 야영장에서의 밤하늘 캠핑 체험과, 동서식당·고돈상회 등 웨이팅 필수 정통 로컬 맛집 탐방이 선사하는 든든함.
+                        </p>
+                    </div>
+                    <div class="px-5 md:px-6 py-4 bg-rose-50/50 border-t border-rose-100/20 text-[10px] md:text-[11px] font-semibold text-rose-700">
+                        📌 야영 캠핑 & 로컬 푸드 미식회
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="recommended-courses" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-neutralWhite">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10 md:mb-16">
+                <span class="text-xs font-bold tracking-widest text-oceanBlue uppercase">Curated Roadmap</span>
+                <h2 class="font-black text-2xl sm:text-5xl text-deepBlue mt-2 tracking-tight">장성 추천 테마 코스</h2>
+                <p class="text-gray-500 mt-3 text-xs md:text-base font-light">자차가 있든 없든, 장성에 머무는 시간 동안 가장 이상적인 동선을 그려줍니다.</p>
+            </div>
+
+            <!-- 스크롤 가능한 탭 가로 홀더로 모바일 터치 대응 -->
+            <div class="flex overflow-x-auto pb-3 mb-8 md:mb-12 no-scrollbar justify-start sm:justify-center -mx-4 px-4 space-x-2 md:space-x-4">
+                <button onclick="switchCourse('green', this)" class="course-tab-btn whitespace-nowrap shrink-0 px-5 py-3 rounded-full bg-deepBlue text-white font-bold text-xs sm:text-sm shadow-md transition-all">
+                    🟢 편백 치유 코스
+                </button>
+                <button onclick="switchCourse('yellow', this)" class="course-tab-btn whitespace-nowrap shrink-0 px-5 py-3 rounded-full bg-slate-100 text-gray-600 hover:bg-slate-200 font-bold text-xs sm:text-sm transition-all">
+                    🟡 감성 낭만 코스
+                </button>
+                <button onclick="switchCourse('history', this)" class="course-tab-btn whitespace-nowrap shrink-0 px-5 py-3 rounded-full bg-slate-100 text-gray-600 hover:bg-slate-200 font-bold text-xs sm:text-sm transition-all">
+                    🔵 인문 역사 코스
+                </button>
+            </div>
+
+            <div class="bg-softGray rounded-3xl p-5 sm:p-10 border border-slate-100">
+                
+                <!-- Green Course Timeline -->
+                <div id="course-green" class="course-content space-y-8">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+                        <div>
+                            <h4 class="font-black text-lg md:text-xl text-deepBlue">🌳 싱그러운 피톤치드 샤워 그린 루프</h4>
+                            <p class="text-xs text-gray-500 mt-1">이른 오전 맑은 공기를 만끽하고 호수 위 시원한 바람을 쐬는 대표 힐링 여정</p>
+                        </div>
+                        <span class="px-3 py-1 bg-teal-50 text-teal-700 border border-teal-200 rounded-full text-xs font-bold self-start md:self-center">총 소요시간 약 4시간</span>
+                    </div>
+                    
+                    <div class="relative pl-6 md:pl-8 border-l-2 border-dashed border-teal-300 space-y-10">
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-teal-600 text-white flex items-center justify-center text-xs font-bold">1</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">축령산 편백나무 숲 <span class="text-[10px] md:text-xs text-teal-600 font-medium ml-2">오전 09:30</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">울창한 편백나무 산책길을 오르며 도심에서 쌓인 몸속 미세먼지와 스트레스를 깨끗이 정화합니다.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-teal-600 text-white flex items-center justify-center text-xs font-bold">2</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">축령산사랑가득국밥 <span class="text-[10px] md:text-xs text-teal-600 font-medium ml-2">오후 12:00</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">하산 후 숲길 초입 근처에서 즐기는 뜨끈하고 정직한 한우 사골국밥 한 그릇으로 완벽한 기력 보충.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-teal-600 text-white flex items-center justify-center text-xs font-bold">3</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">장성호 수변길 산책 <span class="text-[10px] md:text-xs text-teal-600 font-medium ml-2">오후 01:30</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">시원하게 드넓은 호수를 감싸 도는 데크 길과 출렁다리를 걸으며 오감이 완벽해지는 쾌적함을 즐겨 보세요.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yellow Course Timeline (Hidden by default) -->
+                <div id="course-yellow" class="course-content hidden space-y-8">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+                        <div>
+                            <h4 class="font-black text-lg md:text-xl text-deepBlue">💛 노란꽃 강변길과 디저트 낭만 드라이브</h4>
+                            <p class="text-xs text-gray-500 mt-1">풍성한 인생샷 명소와 트렌디한 로컬 카페, 달콤한 옐로우 베이커리를 들리는 하루</p>
+                        </div>
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-full text-xs font-bold self-start md:self-center">총 소요시간 약 5시간 (식사 포함)</span>
+                    </div>
+                    
+                    <div class="relative pl-6 md:pl-8 border-l-2 border-dashed border-amber-300 space-y-10">
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-bold">1</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">고돈상회 <span class="text-[10px] md:text-xs text-amber-600 font-medium ml-2">오후 12:30</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">완전 작지만 알찬 내부, 인스타 감성을 자극하는 MZ 취욕의 공간에서 두툼한 수제 돈까스와 겉바속촉 수제 크로켓으로 든든하게 여행을 시작합니다.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-bold">2</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">황룡강 꽃 정원 산책 <span class="text-[10px] md:text-xs text-amber-600 font-medium ml-2">오후 02:00</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">억만 송이 꽃이 빚어내는 황홀한 노란빛 강물길을 걸으며 소중한 사람들과의 감성 사진을 잔뜩 기록하세요.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-bold">3</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">카페 오데온 or 필그림 <span class="text-[10px] md:text-xs text-amber-600 font-medium ml-2">오후 03:30</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">대형 유리창 밖으로 자연이 넉넉히 보이는 정원식 대형 감성 카페에서 풍미 짙은 플랫화이트를 만끽합니다.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-bold">4</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">쿠키당 & 옐로우케이크 <span class="text-[10px] md:text-xs text-amber-600 font-medium ml-2">오후 05:00</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">달콤한 옐로우 수제 타르트와 귀여운 도넛 상자 패키지를 포장하며 눈과 입이 모두 호강하는 기분 좋은 마무리.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Course Timeline (Hidden by default) -->
+                <div id="course-history" class="course-content hidden space-y-8">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+                        <div>
+                            <h4 class="font-black text-lg md:text-xl text-deepBlue">💙 선비의 온전한 정신과 미식 인문학 루트</h4>
+                            <p class="text-xs text-gray-500 mt-1">역사적 숨결이 가득한 필암서원과 천년고찰 백양사를 넘나들며 정갈함을 누리는 길</p>
+                        </div>
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full text-xs font-bold self-start md:self-center">총 소요시간 약 5시간</span>
+                    </div>
+                    
+                    <div class="relative pl-6 md:pl-8 border-l-2 border-dashed border-blue-300 space-y-10">
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">1</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">유네스코 세계문화유산 필암서원 <span class="text-[10px] md:text-xs text-blue-600 font-medium ml-2">오전 10:30</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">한옥 정원에 가만히 서서 수백 년간 지켜져 내려온 전통 선비 교육기관의 조용하고 엄숙한 공기를 들이쉽니다.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">2</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">백양사 앞 동서식당 (중식) <span class="text-[10px] md:text-xs text-blue-600 font-medium ml-2">오후 12:30</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">칼칼하고 묵직한 국물의 최고존엄 굴짬뽕과 겉바속촉 고돈상회 수제 돈까스로 즐기는 꿀맛 로컬 미식 탐험.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[33px] md:-left-[41px] top-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">3</div>
+                            <h5 class="font-bold text-sm md:text-base text-deepBlue">천년 백양사 사색 <span class="text-[10px] md:text-xs text-blue-600 font-medium ml-2">오후 02:00</span></h5>
+                            <p class="text-xs text-gray-500 mt-1">수려한 기암절벽인 학바위와 연못 쌍계루 주변을 가볍게 포행하며 인근 찻집에서 따뜻한 전통차 한 잔으로 쉼표.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="spots" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-softGray">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-10 md:mb-16">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-oceanBlue uppercase">Explore Jangseong</span>
+                    <h2 class="font-black text-2xl sm:text-5xl text-deepBlue mt-2 tracking-tight">장성 가볼 만한 추천 명소</h2>
+                    <p class="text-gray-500 mt-2 text-xs md:text-sm font-light">나의 취향이나 오늘 당장 떠나고 싶은 무드에 맞추어 관광지를 필터링해 보세요.</p>
+                </div>
+                
+                <!-- 필터 가로 스크롤 대응 -->
+                <div class="flex overflow-x-auto pb-2 w-full lg:w-auto -mx-4 px-4 lg:mx-0 lg:px-0 gap-2 no-scrollbar">
+                    <button onclick="filterSpots('all', this)" class="spot-filter-btn whitespace-nowrap shrink-0 px-4 py-2 rounded-lg bg-deepBlue text-white text-xs font-semibold shadow-sm transition-all">전체</button>
+                    <button onclick="filterSpots('nature', this)" class="spot-filter-btn whitespace-nowrap shrink-0 px-4 py-2 rounded-lg bg-white text-gray-600 hover:bg-slate-50 text-xs font-semibold shadow-sm transition-all">🌿 자연/힐링</button>
+                    <button onclick="filterSpots('culture', this)" class="spot-filter-btn whitespace-nowrap shrink-0 px-4 py-2 rounded-lg bg-white text-gray-600 hover:bg-slate-50 text-xs font-semibold shadow-sm transition-all">📚 문화/사색</button>
+                    <button onclick="filterSpots('food', this)" class="spot-filter-btn whitespace-nowrap shrink-0 px-4 py-2 rounded-lg bg-white text-gray-600 hover:bg-slate-50 text-xs font-semibold shadow-sm transition-all">☕ 맛집/카페</button>
+                </div>
+            </div>
+
+            <!-- Spot 카드는 모바일에서 터치 인터랙션을 방해하지 않고 아름답게 1열 배열 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6" id="spot-container">
+                
+                <!-- Spot 1: 축령산 편백숲 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-teal-500/30 transition-all duration-500 ease-out group" data-category="nature">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/축령산.jpg" 
+                             alt="축령산 편백숲" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-teal-500 text-white text-[10px] font-bold rounded-md z-10">자연/힐링</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">축령산 편백숲</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">국내에서 편백나무가 가장 빽빽하게 자란 숲. 맑은 치유와 산소 가득 삼림욕의 성지.</p>
+                    </div>
+                </div>
+
+                <!-- Spot 2: 장성호 수변길 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-teal-500/30 transition-all duration-500 ease-out group" data-category="nature">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/장성호.jpg" 
+                             alt="장성호 수변길" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-teal-500 text-white text-[10px] font-bold rounded-md z-10">자연/힐링</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">장성호 수변길</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">나무 데크길을 밟으며 맑은 물빛 잔잔히 빛나는 광경을 바라보며 사색할 수 있는 수변 정원.</p>
+                    </div>
+                </div>
+
+                <!-- Spot 3: 황룡강 꽃 정원 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-teal-500/30 transition-all duration-500 ease-out group" data-category="nature">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/황룡강.jpg" 
+                             alt="황룡강 꽃 정원" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-teal-500 text-white text-[10px] font-bold rounded-md z-10">자연/힐링</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">황룡강 꽃 정원</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">사계절 다채로운 꽃들이 피어나는 노란빛 수변 테마정원. 드넓은 강바람과 수많은 꽃길이 온전한 평온을 선물합니다.</p>
+                    </div>
+                </div>
+
+                <!-- Spot 4: 필암서원 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-blue-500/30 transition-all duration-500 ease-out group" data-category="culture">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/필암서원.jpg" 
+                             alt="필암서원" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded-md z-10">문화/사색</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">유네스코 필암서원</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">유네스코 지정 우리나라 9대 서원 중 하나. 정갈한 기와 구조 아래서 배우는 사색의 향기.</p>
+                    </div>
+                </div>
+
+                <!-- Spot 5: 백양사 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-blue-500/30 transition-all duration-500 ease-out group" data-category="culture">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/백양사입구.jpg" 
+                             alt="백양사" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded-md z-10">문화/사색</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">천년고찰 백양사</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">사계절 수채화처럼 매초 풍경이 바뀌는 누각 쌍계루를 정면으로 품은 인문학의 온상지.</p>
+                    </div>
+                </div>
+
+                <!-- Spot 6: 카페 오데온 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-amber-500/30 transition-all duration-500 ease-out group" data-category="food">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/필그림.jpg" 
+                             alt="카페 필그림" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-amber-500 text-white text-[10px] font-bold rounded-md z-10">맛집/카페</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">카페 오데온</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">한없이 넓고 잘 다듬어진 수목 정원 속에서 짙은 원두 향과 함께 시각적 치유를 돕는 대형 카페.</p>
+                    </div>
+                </div>
+
+                <!-- Spot 7: 쿠키당 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-amber-500/30 transition-all duration-500 ease-out group" data-category="food">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/케이크.jpg" 
+                             alt="옐로우케이크" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1511018556340-d16986a1c194?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-amber-500 text-white text-[10px] font-bold rounded-md z-10">맛집/카페</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">쿠키당 / 옐로우케이크</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">달달한 타르트와 귀여운 도넛 상자 패키지, 노란 장성의 향기를 디저트로 풀어내는 감성 베이커리.</p>
+                    </div>
+                </div>
+
+                <!-- Spot 8: 동서식당 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-amber-500/30 transition-all duration-500 ease-out group" data-category="food">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/동서식당.jpg" 
+                             alt="동서식당" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-amber-500 text-white text-[10px] font-bold rounded-md z-10">맛집/카페</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">백양사 동서식당</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">현지인들이 일찍부터 줄을 서는 가성비 굴짬뽕 맛집. 맑고 깊은 국물이 여행의 피로를 풀어줍니다.</p>
+                    </div>
+                </div>
+
+                <!-- Spot 9: 고돈상회 -->
+                <div class="spot-card bg-neutralWhite rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-3 hover:-rotate-1 hover:border-amber-500/30 transition-all duration-500 ease-out group" data-category="food">
+                    <div class="aspect-[4/3] relative overflow-hidden">
+                        <!-- 💡 [이미지 변경] 아래 src="..." 부분을 원하는 로컬 사진 파일명(예: myphoto.jpg) 또는 이미지 링크 주소로 교체하세요! -->
+                        <img src="images/고돈상회.jpg" 
+                             alt="고돈상회" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80'">
+                        <span class="absolute top-3 left-3 px-2 py-1 bg-amber-500 text-white text-[10px] font-bold rounded-md z-10">맛집/카페</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-base md:text-lg text-deepBlue">고돈상회</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed font-light">겉은 파삭하고 속은 넉넉하게 부드러운 진짜 로컬 수제 돈까스를 합리적으로 맛볼 수 있는 소박한 일식.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-deepBlue text-white relative">
+        <div class="max-w-5xl mx-auto">
+            
+            <div class="text-center mb-12">
+                <span class="text-xs font-bold tracking-widest text-blue-400 uppercase">Interactive Masterpiece</span>
+                <h2 class="font-black text-2xl sm:text-5xl text-white mt-2 tracking-tight">백양사 쌍계루의 사계(四季)</h2>
+                <p class="text-slate-400 mt-3 text-xs md:text-base font-light">
+                    자연이 직접 그려내는 천년의 동양화. 버튼을 눌러 계절별 반영 예술을 미리 감상하세요.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center bg-white/5 border border-white/10 rounded-3xl p-5 sm:p-10 backdrop-blur-md">
+                
+                <div class="lg:col-span-7 relative">
+                    <div class="overflow-hidden rounded-2xl shadow-2xl aspect-[4/3] bg-slate-900 border-2 md:border-4 border-white/15 relative">
+                        <!-- 💡 [이미지 변경] 처음에 보여줄 기본 이미지를 images/봄.jpg로 설정했습니다. -->
+                        <img id="ssanggyeru-img" 
+                             src="images/봄.jpg" 
+                             alt="백양사 봄 풍경" 
+                             class="w-full h-full object-cover transition-opacity duration-500 ease-in-out"
+                             onerror="this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80'">
+                        
+                        <span class="absolute top-3 left-3 md:top-4 md:left-4 bg-black/80 backdrop-blur-sm text-white text-[8px] md:text-[10px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border border-white/10 shadow-lg">
+                            Live Photography Scene
+                        </span>
+                    </div>
+                    
+                    <div class="mt-4 flex flex-col sm:flex-row justify-between items-center bg-black/40 border border-white/5 p-3 rounded-xl gap-2">
+                        <span class="text-[11px] md:text-xs text-slate-400 font-medium">🌸 쌍계루 사계절 렌즈 돌려보기:</span>
+                        <div class="flex space-x-1 w-full sm:w-auto justify-center">
+                            <button onclick="changeSeason('spring', this)" class="season-btn flex-1 sm:flex-none px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-bold transition-all">봄</button>
+                            <button onclick="changeSeason('summer', this)" class="season-btn flex-1 sm:flex-none px-3 py-1.5 bg-white/5 text-slate-300 rounded-lg text-xs hover:bg-blue-600 hover:text-white transition-all">여름</button>
+                            <button onclick="changeSeason('autumn', this)" class="season-btn flex-1 sm:flex-none px-3 py-1.5 bg-white/5 text-slate-300 rounded-lg text-xs hover:bg-blue-600 hover:text-white transition-all">가을</button>
+                            <button onclick="changeSeason('winter', this)" class="season-btn flex-1 sm:flex-none px-3 py-1.5 bg-white/5 text-slate-300 rounded-lg text-xs hover:bg-blue-600 hover:text-white transition-all">겨울</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 space-y-4 md:space-y-6 lg:pl-4">
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest block" id="season-tag">Spring Season</span>
+                    <h3 class="font-black text-xl md:text-3xl text-white tracking-tight leading-snug" id="season-title">
+                        벚꽃 흐드러진 쌍계루,<br>봄바람이 머무는 자리를 걷다
+                    </h3>
+                    <p class="text-slate-300 text-xs md:text-base leading-relaxed font-light" id="season-desc">
+                        봄날의 백양사는 쌍계루를 중심으로 흐드러지는 벚꽃가지가 일품입니다. 물결 위로 흩날리는 정갈한 연분홍빛 기와 조화는 보는 이의 가슴을 봄꽃 향기로 물들입니다.
+                    </p>
+                    <div class="p-4 bg-white/5 rounded-xl border-l-4 border-blue-500 text-xs text-slate-300 font-light" id="season-tip">
+                        💡 <strong class="text-blue-300 font-semibold">현지 작가의 팁:</strong> 봄 여행 팁: 연못 뒤편의 산수유 군락지를 먼저 둘러보시고 연못에 다가서면 더욱 극대화된 봄의 그라데이션을 렌즈에 포착할 수 있습니다.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="cta-section" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-gradient-to-b from-softGray to-white relative overflow-hidden">
+        <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-blue-500/5 filter blur-3xl"></div>
+        <div class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/5 filter blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="text-center mb-10 md:mb-12">
+                <span class="text-xs font-bold tracking-widest text-oceanBlue uppercase">Healing Finder</span>
+                <h2 class="font-black text-2xl sm:text-5xl text-deepBlue mt-2 tracking-tight">나만의 장성 힐링 보딩패스 발급</h2>
+                <p class="text-gray-500 mt-3 text-xs md:text-sm font-light text-center">가벼운 옵션들을 작성하고 선택해 보세요. 나만을 위해 완벽히 맞춤 설계된 장성 전용 탑승 티켓을 발급해 드립니다.</p>
+            </div>
+
+            <!-- 발급 신청 폼 카드 -->
+            <div class="bg-white rounded-3xl p-5 sm:p-10 shadow-2xl border border-slate-100 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
+                    
+                    <!-- 질문 1: 출발지 입력 및 퀵 선택 -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-deepBlue">🚗 1. 출발지는 어디이신가요?</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fa-solid fa-location-dot text-xs"></i>
+                            </span>
+                            <input type="text" id="quiz-depart-input" value="서울" 
+                                   class="w-full pl-9 pr-4 py-3 border-2 border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-deepBlue focus:ring-1 focus:ring-deepBlue transition-all" 
+                                   placeholder="출발 도시를 직접 입력해 주세요 (예: 대전, 광주 등)">
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <button onclick="selectDepart('서울', this)" class="depart-quick-btn px-3 py-2 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 hover:bg-slate-50 bg-deepBlue text-white border-deepBlue transition-all">서울</button>
+                            <button onclick="selectDepart('광주', this)" class="depart-quick-btn px-3 py-2 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 hover:bg-slate-50 bg-white transition-all">광주</button>
+                            <button onclick="selectDepart('부산', this)" class="depart-quick-btn px-3 py-2 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 hover:bg-slate-50 bg-white transition-all">부산</button>
+                            <button onclick="selectDepart('대전', this)" class="depart-quick-btn px-3 py-2 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 hover:bg-slate-50 bg-white transition-all">대전</button>
+                            <button onclick="selectDepart('인천', this)" class="depart-quick-btn px-3 py-2 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 hover:bg-slate-50 bg-white transition-all">인천</button>
+                        </div>
+                    </div>
+
+                    <!-- 질문 2: 출발 날짜 입력 -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-deepBlue">📅 2. 언제 출발하실 예정인가요?</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fa-solid fa-calendar-days text-xs"></i>
+                            </span>
+                            <input type="date" id="quiz-date-input" value="2026-07-13" 
+                                   class="w-full pl-9 pr-4 py-3 border-2 border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-deepBlue focus:ring-1 focus:ring-deepBlue transition-all">
+                        </div>
+                        <p class="text-[10px] text-slate-400 font-light">※ 장성은 사계절 내내 언제 가도 아름다운 힐링을 보장합니다.</p>
+                    </div>
+
+                    <!-- 질문 3: 동행자 -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-deepBlue">🧑 3. 누구와 함께 떠나시나요?</label>
+                        <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+                            <button onclick="selectQuiz('companion', 'solo', this)" class="quiz-companion-btn py-3 border border-slate-200 rounded-xl text-[10px] xs:text-xs font-bold text-gray-600 bg-white hover:bg-slate-50 transition-all select-active">혼자 떠나기</button>
+                            <button onclick="selectQuiz('companion', 'couple', this)" class="quiz-companion-btn py-3 border border-slate-200 rounded-xl text-[10px] xs:text-xs font-bold text-gray-600 bg-white hover:bg-slate-50 transition-all">연인·친구</button>
+                            <button onclick="selectQuiz('companion', 'family', this)" class="quiz-companion-btn py-3 border border-slate-200 rounded-xl text-[10px] xs:text-xs font-bold text-gray-600 bg-white hover:bg-slate-50 transition-all">가족 동반</button>
+                        </div>
+                    </div>
+
+                    <!-- 질문 4: 힐링 테마 -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-bold text-deepBlue">✨ 4. 지금 나에게 필요한 진짜 쉼은?</label>
+                        <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+                            <button onclick="selectQuiz('theme', 'nature', this)" class="quiz-theme-btn py-3 border border-slate-200 rounded-xl text-[10px] xs:text-xs font-bold text-gray-600 bg-white hover:bg-slate-50 transition-all select-active">대자연 치유</button>
+                            <button onclick="selectQuiz('theme', 'cafe', this)" class="quiz-theme-btn py-3 border border-slate-200 rounded-xl text-[10px] xs:text-xs font-bold text-gray-600 bg-white hover:bg-slate-50 transition-all">감성 카페</button>
+                            <button onclick="selectQuiz('theme', 'culture', this)" class="quiz-theme-btn py-3 border border-slate-200 rounded-xl text-[10px] xs:text-xs font-bold text-gray-600 bg-white hover:bg-slate-50 transition-all">조용한 사색</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-center pt-2">
+                    <button onclick="generateBoardingPass()" class="w-full sm:w-auto px-8 py-4 bg-deepBlue hover:bg-oceanBlue text-white font-extrabold text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-ticket"></i>
+                        <span>힐링 보딩패스 티켓 발급하기</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 전체 티켓 래퍼 영역 (티켓과 하단 다운로드 버튼 포함) -->
+            <div id="ticket-wrapper" class="hidden space-y-6">
+                <!-- 실제 보딩패스 디자인 카드 (html2canvas 촬영 대상) -->
+                <div id="ticket-result" class="transform transition-all duration-700 opacity-0 translate-y-6 scale-95 bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-8 shadow-2xl relative border border-white/10 overflow-hidden">
+                    
+                    <!-- 티켓 좌우 사이드 홈 (모바일에서도 뚜렷하게 보임) -->
+                    <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#f8fafc] border-r border-white/10 z-10"></div>
+                    <div class="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#f8fafc] border-l border-white/10 z-10"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                        <!-- 좌측 메인 정보 구역 -->
+                        <div class="md:col-span-8 space-y-6 pr-0 md:pr-6 md:border-r md:border-dashed md:border-white/20">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[9px] xs:text-[10px] tracking-widest font-black text-amber-400 uppercase">Jangseong Healing Boarding Pass</span>
+                                <span class="text-[10px] md:text-xs text-white/50" id="ticket-serial">No. JS-2026-9482</span>
+                            </div>
+                            
+                            <div class="flex justify-between items-center py-4 border-b border-white/10">
+                                <div>
+                                    <div class="text-[9px] md:text-[10px] text-white/40 uppercase font-semibold">Departure</div>
+                                    <div class="text-xl md:text-2xl font-black text-white tracking-wide uppercase" id="ticket-val-departure">SEOUL</div>
+                                </div>
+                                <div class="flex flex-col items-center px-4">
+                                    <span class="text-[8px] md:text-[9px] text-teal-400 font-bold mb-1" id="ticket-val-date">2026-07-13</span>
+                                    <div class="w-16 xs:w-20 sm:w-24 h-[1px] bg-teal-500/40 relative flex items-center justify-center">
+                                        <i class="fa-solid fa-car text-[10px] text-teal-400"></i>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-[9px] md:text-[10px] text-white/40 uppercase font-semibold">Destination</div>
+                                    <div class="text-xl md:text-2xl font-black text-amber-300 tracking-wide">장성</div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 sm:gap-4 text-left">
+                                <div>
+                                    <div class="text-[9px] md:text-[10px] text-white/40 font-semibold">여행 패밀리</div>
+                                    <div class="text-[10px] md:text-xs font-bold text-white mt-1" id="ticket-val-companion">나홀로 자유</div>
+                                </div>
+                                <div>
+                                    <div class="text-[9px] md:text-[10px] text-white/40 font-semibold">선택 테마</div>
+                                    <div class="text-[10px] md:text-xs font-bold text-white mt-1" id="ticket-val-theme">대자연 치유</div>
+                                </div>
+                                <div>
+                                    <div class="text-[9px] md:text-[10px] text-white/40 font-semibold">추천 메인 코스</div>
+                                    <div class="text-[10px] md:text-xs font-bold text-teal-300 mt-1" id="ticket-val-target">축령산 편백숲길</div>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-slate-300 leading-relaxed font-light pt-4 border-t border-white/5" id="ticket-val-desc">
+                                "축령산의 웅장한 편백숲길이 귀하의 마중을 준비하고 있습니다. 수변길 잔잔한 물결 위에서 복잡한 걱정거리를 모두 내려놓으시길 바랍니다."
+                            </p>
+                        </div>
+
+                        <!-- 모바일용 절취선 추가 (디자인 완성도 제고) -->
+                        <div class="block md:hidden border-t border-dashed border-white/20 my-1 w-full"></div>
+
+                        <!-- 우측 스텁/검증 구역 -->
+                        <div class="md:col-span-4 flex flex-row md:flex-col justify-between md:justify-center items-center text-center pl-0 md:pl-6 gap-4 w-full">
+                            <div class="text-left md:text-center space-y-1">
+                                <span class="text-[9px] md:text-[10px] text-white/40 tracking-wider block">QR Verification</span>
+                                <div class="bg-white p-1.5 rounded-lg w-20 h-20 md:w-28 md:h-28 flex items-center justify-center">
+                                    <div class="w-full h-full border border-slate-900 border-dashed rounded-md flex flex-col items-center justify-center p-0.5 text-slate-900">
+                                        <i class="fa-solid fa-qrcode text-2xl md:text-4xl mb-0.5 text-slate-900"></i>
+                                        <span class="text-[6px] md:text-[8px] font-black tracking-tight text-slate-900">힐링보장 QR</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-1.5 text-right md:text-center shrink-0">
+                                <span class="px-2 py-0.5 bg-amber-500 text-slate-950 text-[9px] font-black rounded uppercase">Gate Open</span>
+                                <div class="text-[10px] text-white/60">언제든 가볍게 출발하세요</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 보딩패스 진짜 이미지 저장 전용 버튼 (티켓 밖에 단독 배치) -->
+                <div id="ticket-action-control" class="flex justify-center pt-2 opacity-0 transform translate-y-4 transition-all duration-700 delay-100">
+                    <button onclick="downloadBoardingPassImage()" class="w-full sm:w-auto px-7 py-3.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-download"></i>
+                        <span>보딩패스 이미지 저장</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-deepBlue text-gray-400 py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-24 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12 text-left">
+                
+                <div class="md:col-span-5 space-y-4">
+                    <span class="font-black text-xl md:text-2xl text-white tracking-tight">성장<span class="text-blue-400">장성</span></span>
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">
+                        전라남도 장성군 공식 브랜드 '성장장성'을 바탕으로,<br>
+                        일상에 지쳐 회복과 내적 성장을 바라는 현대인들을 위한 맞춤형 힐링 아지트를 안내합니다.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all text-xs"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all text-xs"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/5 text-white flex items-center justify-center hover:bg-white/10 transition-all text-xs"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3 space-y-3">
+                    <h5 class="text-white text-xs font-bold uppercase tracking-wider">주요 카테고리 바로가기</h5>
+                    <ul class="text-xs space-y-2 text-slate-400">
+                        <li><a href="#intro" class="hover:text-white transition-all">성장장성 브랜드 소개</a></li>
+                        <li><a href="#selling-points" class="hover:text-white transition-all">4대 매력 포인트 핵심 요약</a></li>
+                        <li><a href="#recommended-courses" class="hover:text-white transition-all">이동자 전용 3대 드라이브 코스</a></li>
+                        <li><a href="#spots" class="hover:text-white transition-all">실시간 취향별 명소 매칭 덱</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-4 space-y-3">
+                    <h5 class="text-white text-xs font-bold uppercase tracking-wider">공식 정보 및 고객 문의처</h5>
+                    <p class="text-xs text-slate-400 font-light leading-relaxed">
+                        <strong>공식 홈페이지:</strong> <a href="http://www.jangseong.go.kr" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline inline-flex items-center gap-1">장성군청 문화관광 포털 <i class="fa-solid fa-up-right-from-square text-[9px]"></i></a><br>
+                        <strong>관광 안내센터:</strong> 전라남도 장성군 장성읍 영천리 / 061-390-7114<br>
+                        <strong>웹 콘텐츠 담당:</strong> 캐릭터 '성장'이와 '장성'이
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- 공공누리 및 자료 출처 표시 영역 -->
+            <div class="pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row justify-between items-start sm:items-center text-xs text-slate-500 gap-3 font-light text-left">
+                <div>
+                    <span>📷 본 사이트에 사용된 이미지 및 자료 출처: </span>
+                    <strong class="text-slate-400 font-semibold">[필암서원]</strong>, 
+                    <strong class="text-slate-400 font-semibold">[백양사]</strong>, 
+                    <a href="https://www.kogl.or.kr/index.do" target="_blank" rel="noopener noreferrer" class="text-blue-400/80 hover:text-blue-400 hover:underline inline-flex items-center gap-1">
+                        공공누리 <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                    </a>
+                </div>
+                <div class="text-[10px] text-slate-600 shrink-0">제1유형: 출처표시 필수 권장</div>
+            </div>
+
+            <div class="pt-4 flex flex-col md:flex-row justify-between items-center text-center gap-4">
+                <p class="text-[11px] md:text-xs text-slate-500 font-light">&copy; 2026 장성군 웹 프로토타입 브랜딩 가이드. All Rights Reserved. 본 사이트는 데모용 기획 레이아웃입니다.</p>
+                <p class="text-[10px] text-slate-600">Designed with trust & simplicity (Deep Blue & Clean White Concept)</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 인터랙티브 얼럿 대체용 하단 플로팅 토스트 레이어 -->
+    <div id="action-toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-900/95 border border-white/10 text-white py-4 px-6 rounded-2xl shadow-2xl flex items-center space-x-3 z-50 transition-all duration-300 opacity-0 pointer-events-none translate-y-4 max-w-[90%] md:max-w-md">
+        <div class="w-8 h-8 rounded-full bg-teal-500 flex items-center justify-center text-white text-sm shrink-0">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="text-xs font-semibold" id="action-toast-text">발행 완료</div>
+    </div>
+
+    <script>
+        // 1. 네비게이션바 스크롤 스타일 및 스크롤 진행률 바 연동
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            
+            // 1-1. 네비게이션 스타일 조율
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-transparent', 'py-4', 'md:py-5');
+                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'py-3', 'shadow-md', 'border-b', 'border-slate-100');
+            } else {
+                navbar.classList.add('bg-transparent', 'py-4', 'md:py-5');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'py-3', 'shadow-md', 'border-b', 'border-slate-100');
+            }
+
+            // 1-2. 스크롤 진행률 상단 바 계산
+            const scrollProgress = document.getElementById('scroll-progress');
+            const scrollTop = window.scrollY; // 현재 스크롤 위치
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight; // 스크롤 가능한 최대 길이
+            const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            
+            scrollProgress.style.width = scrollPercent + '%';
+        });
+
+        // 2. 추천 코스 탭 스왑 시스템
+        function switchCourse(courseId, clickedBtn) {
+            const tabButtons = document.querySelectorAll('.course-tab-btn');
+            tabButtons.forEach(btn => {
+                btn.classList.remove('bg-deepBlue', 'text-white', 'shadow-md');
+                btn.classList.add('bg-slate-100', 'text-gray-600', 'hover:bg-slate-200');
+            });
+
+            clickedBtn.classList.remove('bg-slate-100', 'text-gray-600', 'hover:bg-slate-200');
+            clickedBtn.classList.add('bg-deepBlue', 'text-white', 'shadow-md');
+
+            const contents = document.querySelectorAll('.course-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            const activeContent = document.getElementById(`course-${courseId}`);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+                activeContent.style.opacity = '0';
+                activeContent.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    activeContent.style.transition = 'all 0.5s ease-out';
+                    activeContent.style.opacity = '1';
+                    activeContent.style.transform = 'translateY(0)';
+                }, 50);
+            }
+        }
+
+        // 3. 추천 명소 카드 카테고리 필터링 덱
+        function filterSpots(categoryId, clickedBtn) {
+            const filterBtns = document.querySelectorAll('.spot-filter-btn');
+            filterBtns.forEach(btn => {
+                btn.classList.remove('bg-deepBlue', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-600', 'hover:bg-slate-50');
+            });
+
+            clickedBtn.classList.remove('bg-white', 'text-gray-600', 'hover:bg-slate-50');
+            clickedBtn.classList.add('bg-deepBlue', 'text-white');
+
+            const spotCards = document.querySelectorAll('.spot-card');
+            spotCards.forEach(card => {
+                if (categoryId === 'all') {
+                    card.classList.remove('hidden');
+                } else if (card.getAttribute('data-category') === categoryId) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // 4. 쌍계루 4계절 갤러리 이미지 데이터 세트
+        // 💡 [이미지 변경] 봄, 여름, 가을, 겨울 버튼을 클릭할 때 바뀔 이미지 경로들을 여기서 교체하세요!
+        const seasonalData = {
+            spring: {
+                img: "images/봄.jpg",
+                tag: "Spring Season",
+                title: "벚꽃 흐드러진 쌍계루,<br>봄바람이 머무는 자리를 걷다",
+                desc: "봄날의 백양사는 쌍계루를 중심으로 흐드러지는 벚꽃가지가 일품입니다. 물결 위로 흩날리는 정갈한 연분홍빛 기와 조화는 보는 이의 가슴을 봄꽃 향기로 물들입니다.",
+                tip: "🌸 봄 여행 팁: 연못 뒤편의 산수유 군락지를 먼저 둘러보시고 연못에 다가서면 더욱 극대화된 봄의 그라데이션을 렌즈에 포착할 수 있습니다."
+            },
+            summer: {
+                img: "images/여름.jpg",
+                tag: "Summer Season",
+                title: "초록빛 짙은 그늘 아래,<br>싱그러운 물소리에 귀를 기울이다",
+                desc: "백암산 골짜기에서 내려오는 맑은 계곡수가 흘러 연못을 채웁니다. 물오리들이 뛰노는 수변 아래 짙푸른 녹음이 드리우는 여름 쌍계루는 도심 무더위를 한 번에 씻겨줍니다.",
+                tip: "🌿 여름 여행 팁: 한낮 정오의 뜨거운 태양이 한숨 꺾이는 오후 4시경 쌍계루 그늘 아래 누각 기둥 사이에 걸터앉으면 일종의 천연 무풍 에어컨 효과를 경험할 수 있습니다."
+            },
+            autumn: {
+                img: "images/가을.jpg",
+                tag: "Autumn Season",
+                title: "붉은 아기단풍이 물들이는<br>쌍계루의 깊은 가을 절경",
+                desc: "백양사의 백미는 단연 가을 아기단풍나무 무리입니다. 연못 표면에 데칼코마니처럼 비치는 학바위와 쌍계루의 단풍빛 반영은 인생의 가장 고요한 정점을 선사합니다.",
+                tip: "🍁 가을 여행 팁: 가을 백양사는 햇빛이 연못 정면에 떨어지는 오전 10시 반에서 11시 반 사이가 반영 사진을 촬영하기에 가장 맑고 깨끗한 완벽한 시간대입니다."
+            },
+            winter: {
+                img: "images/겨울.jpg",
+                tag: "Winter Season",
+                title: "소리 없이 내려앉은 눈,<br>백암산의 은빛 고요 속에 머물다",
+                desc: "쌍계루 지붕 가득 순백의 설산 풍경이 조용히 수놓아집니다. 물결마저 얼어붙은 영하의 차가운 정지 화면 속에서 진정한 자아 성찰과 평화로운 고독을 발견해 보세요.",
+                tip: "❄️ 겨울 여행 팁: 눈 내린 당일날 이른 오전 08시 이전에 가시면, 발자국이 남지 않은 완전한 설국 백양사를 고독하게 독점하는 영광을 안으실 수 있습니다."
+            }
+        };
+
+        // 4계절 갤러리 전환 로직
+        function changeSeason(seasonKey, clickedBtn) {
+            const seasonBtns = document.querySelectorAll('.season-btn');
+            seasonBtns.forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'font-bold');
+                btn.classList.add('bg-white/5', 'text-slate-300');
+            });
+
+            clickedBtn.classList.remove('bg-white/5', 'text-slate-300');
+            clickedBtn.classList.add('bg-blue-600', 'text-white', 'font-bold');
+
+            const imgEl = document.getElementById('ssanggyeru-img');
+            const tagEl = document.getElementById('season-tag');
+            const titleEl = document.getElementById('season-title');
+            const descEl = document.getElementById('season-desc');
+            const tipEl = document.getElementById('season-tip');
+
+            const selected = seasonalData[seasonKey];
+
+            imgEl.style.opacity = '0.1';
+            setTimeout(() => {
+                imgEl.src = selected.img;
+                tagEl.innerText = selected.tag;
+                titleEl.innerHTML = selected.title;
+                descEl.innerText = selected.desc;
+                tipEl.innerHTML = `💡 <strong class="text-blue-300 font-semibold">현지 작가의 팁:</strong> ${selected.tip.split(': ')[1]}`;
+                imgEl.style.opacity = '1';
+            }, 200);
+        }
+
+        // 5. 출발지 퀵클릭 버튼 전용 로직
+        function selectDepart(cityName, clickedBtn) {
+            document.getElementById('quiz-depart-input').value = cityName;
+            
+            const quickBtns = document.querySelectorAll('.depart-quick-btn');
+            quickBtns.forEach(btn => {
+                btn.classList.remove('bg-deepBlue', 'text-white', 'border-deepBlue');
+                btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+            });
+
+            clickedBtn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+            clickedBtn.classList.add('bg-deepBlue', 'text-white', 'border-deepBlue');
+        }
+
+        // 6. CTA 인터랙티브 보딩패스 티켓 생성 처리
+        const quizState = {
+            companion: 'solo',
+            theme: 'nature'
+        };
+
+        function selectQuiz(type, value, clickedBtn) {
+            const buttons = document.querySelectorAll(`.quiz-${type}-btn`);
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-deepBlue', 'text-white', 'select-active');
+                btn.classList.add('bg-white', 'text-gray-600');
+            });
+
+            clickedBtn.classList.remove('bg-white', 'text-gray-600');
+            clickedBtn.classList.add('bg-deepBlue', 'text-white', 'select-active');
+
+            quizState[type] = value;
+        }
+
+        // 7. 보딩패스 발급 및 애니메이션 노출 로직
+        function generateBoardingPass() {
+            const ticketWrapper = document.getElementById('ticket-wrapper');
+            const ticketResult = document.getElementById('ticket-result');
+            const actionControl = document.getElementById('ticket-action-control');
+            
+            const departCity = document.getElementById('quiz-depart-input').value.trim() || '서울';
+            const departDate = document.getElementById('quiz-date-input').value || '2026-07-13';
+
+            const mappingData = {
+                companion: {
+                    solo: "나홀로 자유 여행자",
+                    couple: "다정한 동반 여행자",
+                    family: "가족 추억 여행자"
+                },
+                theme: {
+                    nature: {
+                        tag: "대자연 피톤치드 치유",
+                        target: "축령산 편백숲길",
+                        desc: "드넓은 편백나무 숲과 장성호 수변길 수면 위의 맑은 공기가 온전히 마중을 준비합니다. 잡생각은 가만히 숲바람에 흩날려 흘려보내시길 바랍니다."
+                    },
+                    cafe: {
+                        tag: "옐로우 감성 카페로드",
+                        target: "황룡강 & 오데온",
+                        desc: "황룡강 물줄기를 흐르는 노란 꽃길을 걸어보고 야외 정원이 넓은 오데온과 쿠키당의 달콤함으로 낭만 충전을 다짐하세요."
+                    },
+                    culture: {
+                        tag: "사색의 곧은 인문 역사",
+                        target: "유네스코 필암서원",
+                        desc: "세계유산 필암서원의 곧은 목조건축 마당을 천천히 거닐어 보고 쌍계루에서 사계절 반영 연못을 내려다보는 인문학적 회복을 선사합니다."
+                    }
+                }
+            };
+
+            // 동적 값 탑승권에 인쇄
+            document.getElementById('ticket-val-departure').innerText = `${departCity.toUpperCase()}`;
+            document.getElementById('ticket-val-date').innerText = departDate;
+            document.getElementById('ticket-val-companion').innerText = mappingData.companion[quizState.companion];
+            document.getElementById('ticket-val-theme').innerText = mappingData.theme[quizState.theme].tag;
+            document.getElementById('ticket-val-target').innerText = mappingData.theme[quizState.theme].target;
+            document.getElementById('ticket-val-desc').innerText = `"${mappingData.theme[quizState.theme].desc}"`;
+
+            const randSerial = `No. JS-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+            document.getElementById('ticket-serial').innerText = randSerial;
+
+            // 보딩패스 전체 래퍼 및 요소 부드럽게 노출
+            ticketWrapper.classList.remove('hidden');
+            setTimeout(() => {
+                // 티켓 카드 페이드 인
+                ticketResult.classList.remove('opacity-0', 'translate-y-6', 'scale-95');
+                ticketResult.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+                
+                // 외부 하단 다운로드 버튼 페이드 인
+                actionControl.classList.remove('opacity-0', 'translate-y-4');
+                actionControl.classList.add('opacity-100', 'translate-y-0');
+
+                ticketWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        // 8. html2canvas 기반 진짜 이미지 기기 다운로드 핵심 로직
+        function downloadBoardingPassImage() {
+            const ticketElement = document.getElementById('ticket-result');
+            
+            // 임시 토스트 알림 노출
+            showActionToast('이미지 생성 중', '📥 보딩패스 고화질 이미지를 렌더링하고 있습니다. 잠시만 기다려 주세요...');
+
+            // html2canvas 옵션 세팅 (CORS 처리, 스케일 업을 통한 선명화)
+            html2canvas(ticketElement, {
+                useCORS: true,
+                scale: 2, 
+                backgroundColor: null, // 투명 배경 유지
+                logging: false
+            }).then(canvas => {
+                // 가상 앵커 태그를 생성해 브라우저 진짜 다운로드 흐름 트리거
+                const link = document.createElement('a');
+                link.download = `성장장성_보딩패스_${document.getElementById('ticket-serial').innerText.replace('No. ', '')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+
+                setTimeout(() => {
+                    showActionToast('저장 완료', '🎉 보딩패스 저장이 정상 완료되었습니다! 여행 시 사용해 보세요.');
+                }, 1000);
+            }).catch(error => {
+                console.error("Boarding pass rendering error: ", error);
+                showActionToast('저장 실패', '❌ 이미지 파일 저장을 처리하지 못했습니다. 화면을 캡처해 주세요.');
+            });
+        }
+
+        // 9. 우아한 하단 플로팅 토스트 레이어 유틸리티
+        function showActionToast(title, text) {
+            const toast = document.getElementById('action-toast');
+            const toastText = document.getElementById('action-toast-text');
+            
+            toastText.innerHTML = `<span class="font-bold text-amber-300">[${title}]</span> ${text}`;
+            
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
